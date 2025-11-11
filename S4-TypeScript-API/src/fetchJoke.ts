@@ -1,5 +1,3 @@
-"use strict"
-
 import type { DadJoke } from "./interfaces/dadJoke";
 
 

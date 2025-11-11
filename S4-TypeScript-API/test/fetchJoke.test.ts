@@ -1,8 +1,10 @@
 import { describe, test, expect, vi, beforeAll, afterAll, beforeEach, afterEach } from "vitest"; 
 import { fetchJoke } from "../src/fetchJoke";
 import { createReportObject } from "../src/createReportObject";
+import { fetchWeather } from "../src/fetchWeather";
 import type { DadJoke } from "../src/interfaces/dadJoke";
 import type { reportJokes } from "../src/interfaces/reportJokes";
+import type { WeatherForecast } from "../src/interfaces/weatherForecast"
 
 describe('Function fetchJoke', () => {
     let message : DadJoke  =  {
@@ -63,4 +65,32 @@ describe ('Function createReportObject', () => {
 
 
 
+})
+
+describe ('Function fetchWeather', () => {
+    
+    let message : WeatherForecast = {
+        "time": "2025-11-11T12:15",
+        "interval": 900,
+        "temperature_2m": 18.5,
+        "weather_code": 2
+    }
+
+
+    const mockResponse = {
+        ok: true,
+        json: vi.fn().mockResolvedValue(message)
+    };
+
+    const responseBody = JSON.stringify(message);
+
+    beforeEach(() => vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(responseBody, { status: 200, headers: { 'Content-Type': 'application/json' } })))
+
+    afterAll(() => vi.spyOn(globalThis, 'fetch').mockRestore())
+
+    test ('should return an object', async () => {
+        
+        let result = await fetchWeather()
+        expect(result).toEqual(message)
+    })
 })
