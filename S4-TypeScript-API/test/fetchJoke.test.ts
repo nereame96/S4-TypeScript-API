@@ -1,6 +1,8 @@
 import { describe, test, expect, vi, beforeAll, afterAll, beforeEach, afterEach } from "vitest"; 
 import { fetchJoke } from "../src/fetchJoke";
+import { createReportObject } from "../src/createReportObject";
 import type { DadJoke } from "../src/interfaces/dadJoke";
+import type { reportJokes } from "../src/interfaces/reportJokes";
 
 describe('Function fetchJoke', () => {
     let message : DadJoke  =  {
@@ -25,4 +27,40 @@ describe('Function fetchJoke', () => {
         let result = await fetchJoke()
         expect(result).toEqual(message)
     })
+})
+
+describe ('Function createReportObject', () => {
+    
+
+    beforeEach(() => {
+        vi.useFakeTimers()
+    })
+
+    afterEach(() => {
+        vi.useRealTimers()
+    })
+
+    test ('should return an object',  () => {
+
+        let message : reportJokes = {
+            joke:   "What do you get when you cross a chicken with a skunk? A fowl smell!",
+            score: 1,
+            date: "2025-11-11T10:20:48.005Z",
+        }
+
+        let output : reportJokes = {
+            joke:   "What do you get when you cross a chicken with a skunk? A fowl smell!",
+            score: 1,
+            date: "2025-11-11T10:20:48.005Z",
+        }
+
+        vi.setSystemTime(output.date)
+
+        let result =  createReportObject(output.joke, output.score)
+
+        expect(result).toEqual(message)
+    })
+
+
+
 })

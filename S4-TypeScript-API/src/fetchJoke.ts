@@ -16,6 +16,6 @@ export const fetchJoke = async () : Promise<DadJoke> => {
     }
 
     const data : DadJoke = await response.json()
-    console.log(data)
+    
     return data
 }
