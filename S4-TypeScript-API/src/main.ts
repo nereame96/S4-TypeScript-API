@@ -1,23 +1,40 @@
-"use strict"
-
 import type { DadJoke } from "./interfaces/dadJoke";
 import type { reportJokes } from "./interfaces/reportJokes";
 import { fetchJoke } from "./fetchJoke";
 import { createReportObject } from "./createReportObject";
+import { getProccesedWeather } from "./utils";
 
 
 document.addEventListener('DOMContentLoaded', async () => {
 
     const resultJoke  = document.getElementById('resultJoke') as HTMLDivElement
+    const resultWeather  = document.getElementById('resultWeather') as HTMLDivElement
     const btnShowJoke = document.getElementById('btnShowJoke') as HTMLButtonElement
- 
-    type currentJokeType = string | null
-
-    let currentJoke : currentJokeType = ''
-
+    let currentJoke : string | null = ''
     const reportJokes : reportJokes[] = [] 
 
+    let selectedScore : number | null = null
+    const scoreButtons = document.querySelectorAll('.buttonRating')
 
+
+    let dataWeather = await getProccesedWeather()
+    resultWeather.textContent = `${dataWeather[0]} , ${dataWeather[1]}`
+
+
+    const startScoreListeners = () => {
+
+        scoreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const btn = button as HTMLButtonElement
+                const scoreString = btn.dataset.score 
+                if (scoreString) {
+                    selectedScore = parseInt(scoreString)
+                }
+                
+            } )
+        })
+
+    }
 
     const getAndDisplayJoke = async () => {
         const jokeObject : DadJoke  = await fetchJoke()
@@ -26,33 +43,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 
-    type selectedScoreType = number | null
-
-    let selectedScore : selectedScoreType = null
-
-    const scoreButtons = document.querySelectorAll('.buttonRating')
-
-
-    scoreButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const btn = button as HTMLButtonElement
-            const scoreString = btn.dataset.score 
-            if (scoreString) {
-                selectedScore = parseInt(scoreString)
-            }
-            
-        } )
-    })
-
-
-
-
-
+    startScoreListeners()
     await getAndDisplayJoke()
 
 
-   
 
+   
      btnShowJoke.addEventListener('click', async () =>{
         
         if (selectedScore !== null && currentJoke !== null){
@@ -67,9 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
 })
-
-
-//las class buttonRating cuando haga click hará un array y si es 1, 2, 3 y no es null, cuando se click al button next (btnShowJoke) se guardará en el array
 
 
 
