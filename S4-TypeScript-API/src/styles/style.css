@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: aliceblue;
+}
+body {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh;
+    background-color: rgb(18, 18, 18);
+    position: relative;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 50px;
+    height: 40vh;
+    max-width: 600px; 
+    width: 90vw; 
+    text-align: center;
+    
+    
+    border: solid 1px rgb(240, 230, 143);
+    border-radius: 8px;
+    
+}
+
+h1 {
+    padding: 20px;
+}
+
+#resultJoke {
+    margin: 5px;
+    padding: 20px;
+    
+
+}
+
+li {
+    list-style: none;
+    display: flex;
+}
+
+button {
+    margin: 5px;
+    background-color: rgb(240, 230, 143);
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: rgb(247, 233, 112);
+}
+
+button:active {
+    border: 1px solid whitesmoke;
+}
+
+.buttonRating {
+    background: none;
+    font-size: 3em;
+    margin-bottom: 30px;
+    
+}
+
+.buttonRating:hover {
+    font-size: 3.2em;
+    background: none;
+}
+
+.buttonRating:active {
+    border: none;
+}
+
+#resultWeather {
+    color: rgb(240, 230, 143);
+    position: absolute; 
+    top: 20px; 
+    left: 20px;
+
+}
