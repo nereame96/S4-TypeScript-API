@@ -1,8 +1,8 @@
-import type { DadJoke } from "./interfaces/dadJoke";
 import type { reportJokes } from "./interfaces/reportJokes";
-import { fetchJoke } from "./fetchJoke";
+import {  } from "./interfaces/chuckNorrisJoke";
 import { createReportObject } from "./createReportObject";
 import { getProccesedWeather } from "./utils";
+import { getRandomJoke } from "./utils";
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -37,9 +37,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const getAndDisplayJoke = async () => {
-        const jokeObject : DadJoke  = await fetchJoke()
-        resultJoke.textContent =  jokeObject.joke
-        currentJoke = jokeObject.joke
+        try {
+            const randomJoke : string = await getRandomJoke()
+        resultJoke.textContent = randomJoke
+        currentJoke = randomJoke
+        
+        } 
+        
+        catch (error) {
+            resultJoke.textContent = 'Error loading joke'
+            console.error("Fetch Error:", error)
+            currentJoke = null
+        }
+        
     }
 
 
